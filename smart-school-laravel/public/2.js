@@ -84,8 +84,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {},
   data: function data() {
     return {};
@@ -110,7 +122,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    [
+      _c(
+        "CRow",
+        [
+          _c(
+            "CCol",
+            { attrs: { col: "12", md: "6" } },
+            [
+              _c(
+                "CCard",
+                [
+                  _c("CCardHeader", [_vm._v(" Welcome ")]),
+                  _vm._v(" "),
+                  _c(
+                    "CCardBody",
+                    [
+                      _c("CAlert", { attrs: { show: "", color: "success" } }, [
+                        _c("h4", { staticClass: "alert-heading" }, [
+                          _vm._v("Welcome to Smart School App!")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v("Thank you for joining us.")])
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

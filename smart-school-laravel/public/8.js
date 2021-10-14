@@ -106,44 +106,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Students",
   data: function data() {
     return {
       items: [],
-      fields: ["id", "name", "registered", "roles", "status", "show", "edit", "delete"],
+      fields: ["id", "name", "email", "username", "role"],
       currentPage: 1,
       perPage: 5,
       totalRows: 0,
@@ -162,43 +131,6 @@ __webpack_require__.r(__webpack_exports__);
     nextButtonHtml: "next"
   },
   methods: {
-    getBadge: function getBadge(status) {
-      return status === "Active" ? "success" : status === "Inactive" ? "secondary" : status === "Pending" ? "warning" : status === "Banned" ? "danger" : "primary";
-    },
-    userLink: function userLink(id) {
-      return "users/".concat(id.toString());
-    },
-    editLink: function editLink(id) {
-      return "users/".concat(id.toString(), "/edit");
-    },
-    showUser: function showUser(id) {
-      var userLink = this.userLink(id);
-      this.$router.push({
-        path: userLink
-      });
-    },
-    editUser: function editUser(id) {
-      var editLink = this.editLink(id);
-      this.$router.push({
-        path: editLink
-      });
-    },
-    deleteUser: function deleteUser(id) {
-      var self = this;
-      var userId = id;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.$apiAdress + "/api/users/" + id + "?token=" + localStorage.getItem("api_token"), {
-        _method: "DELETE"
-      }).then(function (response) {
-        self.message = "Successfully deleted user.";
-        self.showAlert();
-        self.getUsers();
-      })["catch"](function (error) {
-        console.log(error);
-        self.$router.push({
-          path: "/login"
-        });
-      });
-    },
     countDownChanged: function countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -207,9 +139,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     getUsers: function getUsers() {
       var self = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.$apiAdress + "/api/users?token=" + localStorage.getItem("api_token")).then(function (response) {
-        self.items = response.data.users;
-        self.you = response.data.you;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.$apiAdress + "/students", {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("api_token")
+        }
+      }).then(function (response) {
+        console.log(response);
+        self.items = response.data.data.users;
       })["catch"](function (error) {
         console.log(error);
         self.$router.push({
@@ -245,7 +182,7 @@ var render = function() {
     [
       _c(
         "CCol",
-        { attrs: { col: "12", xl: "8" } },
+        { attrs: { col: "12", xl: "12" } },
         [
           _c(
             "transition",
@@ -254,7 +191,7 @@ var render = function() {
               _c(
                 "CCard",
                 [
-                  _c("CCardHeader", [_vm._v(" Users ")]),
+                  _c("CCardHeader", [_vm._v(" Students ")]),
                   _vm._v(" "),
                   _c(
                     "CCardBody",
@@ -292,112 +229,7 @@ var render = function() {
                           fields: _vm.fields,
                           "items-per-page": 5,
                           pagination: ""
-                        },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "status",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return [
-                                _c(
-                                  "td",
-                                  [
-                                    _c(
-                                      "CBadge",
-                                      {
-                                        attrs: {
-                                          color: _vm.getBadge(item.status)
-                                        }
-                                      },
-                                      [_vm._v(_vm._s(item.status))]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            }
-                          },
-                          {
-                            key: "show",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return [
-                                _c(
-                                  "td",
-                                  [
-                                    _c(
-                                      "CButton",
-                                      {
-                                        attrs: { color: "primary" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.showUser(item.id)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Show")]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            }
-                          },
-                          {
-                            key: "edit",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return [
-                                _c(
-                                  "td",
-                                  [
-                                    _c(
-                                      "CButton",
-                                      {
-                                        attrs: { color: "primary" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.editUser(item.id)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Edit")]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            }
-                          },
-                          {
-                            key: "delete",
-                            fn: function(ref) {
-                              var item = ref.item
-                              return [
-                                _c(
-                                  "td",
-                                  [
-                                    _vm.you != item.id
-                                      ? _c(
-                                          "CButton",
-                                          {
-                                            attrs: { color: "danger" },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.deleteUser(item.id)
-                                              }
-                                            }
-                                          },
-                                          [_vm._v("Delete")]
-                                        )
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
-                              ]
-                            }
-                          }
-                        ])
+                        }
                       })
                     ],
                     1
